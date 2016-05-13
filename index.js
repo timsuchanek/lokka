@@ -123,7 +123,14 @@ var Lokka = function () {
       }
 
       // XXX: Validate query against the schema
-      var mutationQuery = 'mutation _ ' + query.trim();
+      var mutationQuery = void 0;
+
+      if (typeof vars !== 'undefined') {
+        mutationQuery = 'mutation ' + query.trim();
+      } else {
+        mutationQuery = 'mutation _ ' + query.trim();
+      }
+
       var fragments = this._findFragments(mutationQuery);
       var queryWithFragments = mutationQuery + '\n' + fragments.join('\n');
 
